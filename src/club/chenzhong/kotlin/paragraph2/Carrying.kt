@@ -17,6 +17,9 @@ fun main() {
     foo5(1)(2)
     changeVar()
     autoRun()
+    println(sum3(10, 20, 30))
+    println(sumCurringBrief(4)(5)(6))
+    println(sumCurring4(-1)(-2)(-3)(-4))
 }
 
 //普通函数
@@ -48,4 +51,31 @@ fun changeVar() {
 fun autoRun() {
     { println("自运行函数") }();
     { x: Int -> println(x) }(1)
+}
+
+//currying
+fun foo6(x: Int): (Int) -> Int {
+    return { y: Int -> x + y }
+}
+
+fun sum3(x: Int, y: Int, z: Int): Int {
+    return x + y + z
+}
+
+//暂时没想到不简化的写法
+/*
+fun sumCurring(x: Int): (y: Int) -> (z: Int) -> Int {
+    return {x -> {y + z}}
+} */
+
+fun sumCurringBrief(x: Int) = { y: Int ->
+    { z: Int -> x + y + z }
+}
+
+fun sumCurring4(a: Int) = { b: Int ->
+    { c: Int ->
+        { d: Int ->
+            a + b + c + d
+        }
+    }
 }
